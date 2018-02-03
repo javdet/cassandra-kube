@@ -1,0 +1,8 @@
+- name: adding kvm users
+  user:
+    name: "{{ item }}"
+    groups: "{{ kvm_unix_sock_group }}"
+    append: yes
+    state: "present"
+  become: true
+  with_items: '{{ kvm_users }}'

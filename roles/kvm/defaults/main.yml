@@ -1,0 +1,36 @@
+kvm_sysctl_settings:
+  - name: 'net.bridge.bridge-nf-call-ip6tables'
+    value: 0
+    state: "present"
+  - name: 'net.bridge.bridge-nf-call-iptables'
+    value: 0
+    state: "present"
+  - name: 'net.bridge.bridge-nf-call-arptables'
+    value: 0
+    state: "present"
+
+kvm_vms:
+  - name: ''
+    autostart: true
+    boot_devices:
+      - 'network'
+      - 'hd'
+      # - 'cdrom'
+    graphics: false
+    disks:
+        # ide, scsi, virtio, xen, usb, sata or sd
+      - disk_driver: 'virtio'
+        name: 'test_vm.1'
+        size: '20000'
+      - disk_driver: 'virtio'
+    memory: '1024'
+    network_interfaces:
+      - source: 'default'
+        network_driver: 'virtio'
+        portgroup: 'vlan-102'
+        type: 'network'
+     # - source: 'vmbr102'
+     #   network_driver: 'virtio'
+      #   type: 'bridge'
+    state: 'running'
+    vcpu: '1'

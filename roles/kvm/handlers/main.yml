@@ -1,0 +1,6 @@
+- name: restart libvirtd
+  become: true
+  systemd:
+    name: "libvirtd"
+    state: "restarted"
+    enabled: true
