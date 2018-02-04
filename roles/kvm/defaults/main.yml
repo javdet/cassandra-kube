@@ -9,8 +9,9 @@ kvm_sysctl_settings:
     value: 0
     state: "present"
 
+
 kvm_vms:
-  - name: ''
+  - name: 'kube-master'
     autostart: true
     boot_devices:
       - 'network'
@@ -20,7 +21,47 @@ kvm_vms:
     disks:
         # ide, scsi, virtio, xen, usb, sata or sd
       - disk_driver: 'virtio'
-        name: 'test_vm.1'
+        name: 'master.1'
+        size: '20000'
+      - disk_driver: 'virtio'
+    memory: '1024'
+    network_interfaces:
+      - source: 'default'
+        network_driver: 'virtio'
+        type: 'network'
+    state: 'running'
+    vcpu: '1'
+  - name: 'kube-worker1'
+    autostart: true
+    boot_devices:
+      - 'network'
+      - 'hd'
+      # - 'cdrom'
+    graphics: false
+    disks:
+        # ide, scsi, virtio, xen, usb, sata or sd
+      - disk_driver: 'virtio'
+        name: 'worker.1'
+        size: '20000'
+      - disk_driver: 'virtio'
+    memory: '1024'
+    network_interfaces:
+      - source: 'default'
+        network_driver: 'virtio'
+        type: 'network'
+    state: 'running'
+    vcpu: '1'
+  - name: 'kube-worker2'
+    autostart: true
+    boot_devices:
+      - 'network'
+      - 'hd'
+      # - 'cdrom'
+    graphics: false
+    disks:
+        # ide, scsi, virtio, xen, usb, sata or sd
+      - disk_driver: 'virtio'
+        name: 'worker.2'
         size: '20000'
       - disk_driver: 'virtio'
     memory: '1024'
