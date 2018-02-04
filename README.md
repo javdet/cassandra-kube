@@ -4,7 +4,7 @@ sudo pip install ansible==2.4.2.0
 ssh-keygen
 ssh-copy-id -i ~/.ssh/id_rsa.pub javdet@localhost
 
-
+ansible-playbook -i inventory/ -v -b -K playbook.yml
 
 размер диска
 по 20 на ВМ

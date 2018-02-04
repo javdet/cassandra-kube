@@ -7,12 +7,12 @@
 - name: Download vagrant
   become: yes
   get_url:
-    url: https://releases.hashicorp.com/vagrant/1.8.4/vagrant_1.8.4_x86_64.deb
+    url: https://releases.hashicorp.com/vagrant/2.0.2/vagrant_2.0.2_x86_64.deb
     dest: "{{ vagrant_debdir }}"
 
 - name: Install vagrant
   become: yes
   apt:
-    deb: "{{ vagrant_debdir }}/vagrant_1.8.4_x86_64.deb"
+    deb: "{{ vagrant_debdir }}/vagrant_2.0.2_x86_64.deb"
 
 - include_tasks: create_vm.yml

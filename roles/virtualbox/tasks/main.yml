@@ -19,6 +19,6 @@
     name: "{{ item }}"
     state: present
   with_items:
+    - virtualbox-5.2
     - dkms
-    - virtualbox-5.1
   become: yes
