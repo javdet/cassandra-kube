@@ -1,8 +1,11 @@
 - name: add apt-key
   become: yes
   apt_key:
-    url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    url: {{ item }}
     state: present
+  with_items:
+    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+    - https://www.virtualbox.org/download/oracle_vbox.asc
 
 - name: add virtualbox repo
   become: yes
