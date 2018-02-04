@@ -14,3 +14,4 @@
     - curl
     - screen
     - apt-transport-https
+    - sshpass

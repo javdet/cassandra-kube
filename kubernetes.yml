@@ -1,9 +1,3 @@
-- hosts: hypervisor
-  roles:
-    - base
-    - virtualbox
-    - vagrant
-
 - hosts: all-nodes
   roles:
     - kubernetes-common
