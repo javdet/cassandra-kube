@@ -1,2 +1,7 @@
-[kvm]
+[hypervisor]
 localhost
+
+[vms]
+master
+worker0
+worker1

@@ -1,4 +1,5 @@
-- hosts: kvm
+- hosts: hypervisor
   roles:
     - base
-    - kvm
+    - virtualbox
+    - vagrant
