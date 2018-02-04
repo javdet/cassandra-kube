@@ -1,23 +1,22 @@
 - name: Create VM dirs
   become: yes
   file:
-    path: "{{ item }}"
+    path: /vagrant
     state: directory
-  with_items:
-    - /vagrant/master
-    - /vagrant/worker0
-    - /vagrant/worker1
 
-- name: Vagrant Init
+- name: Copy Vagrantfile
   become: yes
-  command: vagrant init debian/stretch
-  agrs:
-    chdir: "{{ item }}"
+  template:
+    src: "{{ item }}.j2"
+    dest: /vagrant/{{ item }}
   with_items:
-    - /vagrant/master
-    - /vagrant/worker0
-    - /vagrant/worker1
+    - Vagrantfile
 
+#- name: Vagrant Up
+#  become: yes
+#  command: vagrant init up
+#    agrs:
+#      chdir: /vagrant
 
 
 
