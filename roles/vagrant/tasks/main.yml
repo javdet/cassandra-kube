@@ -15,4 +15,4 @@
   apt:
     deb: "{{ vagrant_debdir }}/vagrant_1.8.4_x86_64.deb"
 
-- include_task: create_vm.yml
+- include_tasks: create_vm.yml
