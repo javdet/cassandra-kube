@@ -3,3 +3,15 @@
     - base
     - virtualbox
     - vagrant
+
+- hosts: all-nodes
+  roles:
+    - kubernetes-common
+
+- hosts: kube-master
+  roles:
+    - kubernetes-master
+
+- hosts: kube-nodes
+  roles:
+    - kubernetes-nodes

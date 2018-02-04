@@ -1,0 +1,5 @@
+kubernetes_master_ip: "172.16.66.2"
+kubeadm_token: "jfuw63.1osue85lsh973hbf"
+cassandra_requests_memory: "1Gi"
+cassandra_requests_cpu: "500m"
+cassandra_heap_size: "512M"

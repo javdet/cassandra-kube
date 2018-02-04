@@ -1,22 +1,22 @@
 - name: Create VM dirs
-  become: yes
   file:
-    path: /vagrant
+    path: ../vagrant
     state: directory
+  delegate_to: localhost
 
 - name: Copy Vagrantfile
-  become: yes
   template:
     src: "{{ item }}.j2"
-    dest: /vagrant/{{ item }}
+    dest: ../vagrant/{{ item }}
   with_items:
     - Vagrantfile
+  delegate_to: localhost
 
 #- name: Vagrant Up
-#  become: yes
-#  command: vagrant init up
+#  command: vagrant up
 #    agrs:
-#      chdir: /vagrant
+#      chdir: ../vagrant
+#  delegate_to: localhost
 
 
 
