@@ -27,10 +27,6 @@ kvm_vms:
     network_interfaces:
       - source: 'default'
         network_driver: 'virtio'
-        portgroup: 'vlan-102'
         type: 'network'
-     # - source: 'vmbr102'
-     #   network_driver: 'virtio'
-      #   type: 'bridge'
     state: 'running'
     vcpu: '1'

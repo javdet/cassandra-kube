@@ -6,7 +6,7 @@
     xml: "{{ lookup('template', 'vm-template.xml.j2') }}"
   with_items: '{{ kvm_vms }}'
 
-- name: config_vms | Creating VM Disk(s)
+- name: Creating VM Disk(s)
   become: true
   qemu_img:
     dest: "{{ kvm_images_path }}/{{ item[1]['name'] }}.{{ kvm_images_format_type }}"
@@ -16,14 +16,14 @@
     - '{{ kvm_vms }}'
     - disks
 
-- name: config_vms | Setting VM State
+- name: Setting VM State
   become: true
   virt:
     name: "{{ item['name'] }}"
     state: "{{ item['state'] }}"
     with_items: '{{ kvm_vms }}'
 
-- name: config_vms | Setting autostart status
+- name: Setting autostart status
   become: true
   virt:
     name: "{{ item['name'] }}"
