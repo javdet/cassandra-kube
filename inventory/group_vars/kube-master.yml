@@ -1,0 +1,5 @@
+keepalived_vrrp_instances:
+  "kube":
+    virtual_router_id: 50
+    shared_iface: ens160
+    shared_vips: '172.17.25.5'

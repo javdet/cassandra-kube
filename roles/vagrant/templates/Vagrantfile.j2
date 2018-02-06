@@ -1,9 +1,11 @@
 nodes = [
-{% for host in groups['all-nodes'] %}
-  { :hostname => '{{ hostvars[host]['hostname'] }}',  :ip => '{{ host }}', :ram => {{ hostvars[host]['ram'] }}, :cpu => {{ hostvars[host]['cpu'] }} }{% if not loop.last %},
+{% for host in groups['kube-master'] %}
+  { :hostname => '{{ host }}',  :ip => '{{ hostvars[host]['ip'] }}', :ram => {{ hostvars[host]['ram'] }}, :cpu => {{ hostvars[host]['cpu'] }} },
+{% endfor %}
+{% for host in groups['kube-node'] %}
+  { :hostname => '{{ host }}',  :ip => '{{ hostvars[host]['ip'] }}', :ram => {{ hostvars[host]['ram'] }}, :cpu => {{ hostvars[host]['cpu'] }} }{% if not loop.last %},
   {% endif %}
 {% endfor %}
-
 ]
 
 Vagrant.configure("2") do |config|
@@ -12,6 +14,7 @@ Vagrant.configure("2") do |config|
       nodeconfig.vm.box = "bento/ubuntu-16.04";
       nodeconfig.vm.hostname = node[:hostname] + ".box"
       nodeconfig.vm.network :private_network, ip: node[:ip]
+      nodeconfig.vm.provision "shell", inline: "swapoff -a"
       memory = node[:ram] ? node[:ram] : 256;
       nodeconfig.vm.provider :virtualbox do |vb|
         vb.customize [

@@ -1,16 +1,22 @@
 [hypervisor]
 localhost
 
-[all-nodes]
-172.16.66.2 ansible_user=vagrant ansible_ssh_pass=vagrant
-172.16.66.3 ansible_user=vagrant ansible_ssh_pass=vagrant
-172.16.66.4 ansible_user=vagrant ansible_ssh_pass=vagrant
-172.16.66.5 ansible_user=vagrant ansible_ssh_pass=vagrant
+master ip=172.16.66.2 ram=2048 cpu=1
+node0 ip=172.16.66.3 ram=1536 cpu=1
+node1 ip=172.16.66.4 ram=1536 cpu=1
+node2 ip=172.16.66.5 ram=1536 cpu=1
 
 [kube-master]
-172.16.66.2 ansible_user=vagrant ansible_ssh_pass=vagrant
+master ansible_user=vagrant ansible_ssh_pass=vagrant
 
-[kube-nodes]
-172.16.66.3 ansible_user=vagrant ansible_ssh_pass=vagrant
-172.16.66.4 ansible_user=vagrant ansible_ssh_pass=vagrant
-172.16.66.5 ansible_user=vagrant ansible_ssh_pass=vagrant
+[etcd]
+master ansible_user=vagrant ansible_ssh_pass=vagrant
+
+[kube-node]
+node0 ansible_user=vagrant ansible_ssh_pass=vagrant
+node1 ansible_user=vagrant ansible_ssh_pass=vagrant
+node2 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+[k8s-cluster:children]
+kube-node
+kube-master
