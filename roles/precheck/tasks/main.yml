@@ -1,0 +1,7 @@
+- name: Check privilege escalation
+  become: yes
+  raw: which "{{ item }}"
+  register: check
+  with_items:
+    - dbus-daemon
+  ignore_errors: true

@@ -1,7 +1,7 @@
-cassandra_requests_memory: "1Gi"
-cassandra_requests_cpu: "500m"
+cassandra_requests_memory: "768Mi"
+cassandra_requests_cpu: "280m"
 cassandra_heap_size: "512M"
-vms_dir: /home/javdet/vagrant
+expose_port: 8080
 
 # Valid bootstrap options (required): ubuntu, coreos, centos, none
 bootstrap_os: ubuntu

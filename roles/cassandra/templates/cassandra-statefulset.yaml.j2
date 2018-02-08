@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: apps/v1beta2
 kind: StatefulSet
 metadata:
   name: cassandra
@@ -30,11 +30,11 @@ spec:
           name: cql
         resources:
           limits:
-            cpu: "500m"
-            memory: 1Gi
+            cpu: "400m"
+            memory: 900Mi
           requests:
-           cpu: "500m"
-           memory: 1Gi
+           cpu: "{{ cassandra_requests_cpu }}"
+           memory: {{ cassandra_requests_memory }}
         securityContext:
           capabilities:
             add:
@@ -45,13 +45,13 @@ spec:
               command: ["/bin/sh", "-c", "PID=$(pidof java) && kill $PID && while ps -p $PID > /dev/null; do sleep 1; done"]
         env:
           - name: MAX_HEAP_SIZE
-            value: 512M
+            value: {{ cassandra_heap_size  }}
           - name: HEAP_NEWSIZE
             value: 100M
           - name: CASSANDRA_SEEDS
-            value: "cassandra-0.cassandra.default.svc.cluster.local"
+            value: "cassandra-0.cassandra.default.svc.sde.local"
           - name: CASSANDRA_CLUSTER_NAME
-            value: "K8S"
+            value: "K8Demo"
           - name: CASSANDRA_DC
             value: "DC1-K8Demo"
           - name: CASSANDRA_RACK

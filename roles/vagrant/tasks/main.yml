@@ -15,4 +15,17 @@
   apt:
     deb: "{{ vagrant_debdir }}/vagrant_2.0.2_x86_64.deb"
 
+- name: Add mappings to /etc/hosts
+  become: yes
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {% for host in groups['kube-master'] %}
+      {{ hostvars[host]['ip'] }} {{ host }}
+      {% endif %}
+      {% for host in groups['kube-node'] %}
+      {{ hostvars[host]['ip'] }} {{ host }}
+      {% endif %}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+
 - include_tasks: create_vm.yml

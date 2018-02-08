@@ -1,18 +1,27 @@
-Ubuntu 16.04
+### Cassandra kube ###
+
+Тестировалось на Ubuntu 17.10
+Необходимое ПО
+- git
+- python-pip
+- sshpass
+- pbr>=1.6
+- ansible==2.4.2.0
+- netaddr
+- jinja2>=2.9.6
+
 apt-get install -y git python-pip sshpass
-sudo pip install ansible==2.4.2.0
-python-netaddr
+pip install -r requirements.txt
 ssh-keygen
 ssh-copy-id -i ~/.ssh/id_rsa.pub javdet@localhost
 
+Запустить
 ansible-playbook -i inventory/ -v -b -K virtualization.yml
 
-подождать 30 сек
-ansible-playbook -i inventory/ -v -b -K kubernetes.yml
+vagrant up
+Затем 
+ansible-playbook -i inventory/hosts cluster.yml -b -v -K
 
 В директории вагранта должны быть права
 размер диска
 по 20 на ВМ
-
-export ANSIBLE_HOST_KEY_CHECKING=False
-kubeadm init --token="jfuw63.1osue85lsh973hbf" --apiserver-advertise-address=172.16.66.2 --kubernetes-version v1.7.0

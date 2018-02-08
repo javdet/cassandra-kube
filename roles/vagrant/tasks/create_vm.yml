@@ -8,14 +8,11 @@
 - name: Copy Vagrantfile
   template:
     src: "{{ item }}.j2"
-    dest: "{{ vms_dir }}/{{ item }}"
+    dest: ./{{ item }}
   with_items:
     - Vagrantfile
+  delegate_to: localhost
 
-- name: Vagrant Up
-  command: vagrant up
-    agrs:
-      chdir: ../vagrant
 
 
 
