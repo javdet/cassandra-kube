@@ -22,10 +22,10 @@
     block: |
       {% for host in groups['kube-master'] %}
       {{ hostvars[host]['ip'] }} {{ host }}
-      {% endif %}
+      {% endfor %}
       {% for host in groups['kube-node'] %}
       {{ hostvars[host]['ip'] }} {{ host }}
-      {% endif %}
+      {% endfor %}
     marker: "# {mark} ANSIBLE MANAGED BLOCK"
 
 - include_tasks: create_vm.yml
