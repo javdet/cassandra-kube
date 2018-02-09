@@ -1,0 +1,36 @@
+- name: Copy prometheus configs
+  become: yes
+  template:
+    src: "{{ item }}.j2"
+    dest: /tmp/{{ item }}
+  with_items:
+    - config-map.yaml
+    - prometheus-secret.yaml
+    - prometheus-serviceaccount.yaml
+    - prometheus-servicebinding.yaml
+    - prometheus-service.yaml
+  when: inventory_hostname == groups['kube-master'][0]
+
+- name: Create namespace monitoring
+  become: yes
+  shell: kubectl create namespace monitoring
+  args:
+    creates: /tmp/namespacemonitoring
+
+- name: Start prometheus
+  become: yes
+  kube:
+    name: "cassandra"
+    namespace: "monitoring"
+    kubectl: "{{bin_dir}}/kubectl"
+    resource: "{{ item.resource }}"
+    filename: "{{ item.config }}"
+    state: "latest"
+  with_items:
+    - { config: /tmp/config-map.yaml, resource: ConfigMap }
+    - { config: /tmp/prometheus-secret.yaml, resource: Secret }
+    - { config: /tmp/prometheus-serviceaccount.yaml, resource: ServiceAccount }
+    - { config: /tmp/prometheus-servicebinding.yaml, resource: ClusterRoleBinding }
+    - { config: /tmp/prometheus-deployment.yaml, resource: Deployment }
+    - { config: /tmp/prometheus-service.yaml, resource: Service }
+  when: inventory_hostname == groups['kube-master'][0]

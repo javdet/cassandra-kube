@@ -5,18 +5,8 @@
     dest: /tmp/{{ item }}
   with_items:
     - cassandra-service.yaml
+    - cassandra-service-metrics.yaml
     - cassandra-statefulset.yaml
-  when: inventory_hostname == groups['kube-master'][0]
-
-- name: Create cassandra service
-  become: yes
-  kube:
-    name: "cassandra"
-    namespace: "default"
-    kubectl: "{{bin_dir}}/kubectl"
-    resource: "Service"
-    filename: "/tmp/cassandra-service.yaml"
-    state: "latest"
   when: inventory_hostname == groups['kube-master'][0]
 
 - name: Start cassandra
@@ -25,7 +15,11 @@
     name: "cassandra"
     namespace: "default"
     kubectl: "{{bin_dir}}/kubectl"
-    resource: "StatefulSet"
-    filename: "/tmp/cassandra-statefulset.yaml"
+    resource: "{{ item.resource }}"
+    filename: "{{ item.config }}"
     state: "latest"
+  with_items:
+    - { config: /tmp/cassandra-service.yaml, resource: Service }
+    - { config: /tmp/cassandra-statefulset.yaml, resource: StatefulSet }
+    - { config: /tmp/cassandra-service-metrics.yaml, resource: Service }
   when: inventory_hostname == groups['kube-master'][0]

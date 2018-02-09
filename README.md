@@ -25,3 +25,5 @@ ansible-playbook -i inventory/hosts cluster.yml -b -v -K
 В директории вагранта должны быть права
 размер диска
 по 20 на ВМ
+
+https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/0.2.0/jmx_prometheus_javaagent-0.2.0.jar
