@@ -2,7 +2,7 @@
   become: yes
   template:
     src: "{{ item }}.j2"
-    dest: /tmp/{{ item }}
+    dest: "{{ kube_config_dir }}/{{ item }}"
   with_items:
     - config-map.yaml
     - prometheus-secret.yaml
@@ -24,13 +24,13 @@
     namespace: "monitoring"
     kubectl: "{{bin_dir}}/kubectl"
     resource: "{{ item.resource }}"
-    filename: "{{ item.config }}"
+    filename: "{{ kube_config_dir }}/{{ item.config }}"
     state: "latest"
   with_items:
-    - { config: /tmp/config-map.yaml, resource: ConfigMap }
-    - { config: /tmp/prometheus-secret.yaml, resource: Secret }
-    - { config: /tmp/prometheus-serviceaccount.yaml, resource: ServiceAccount }
-    - { config: /tmp/prometheus-servicebinding.yaml, resource: ClusterRoleBinding }
-    - { config: /tmp/prometheus-deployment.yaml, resource: Deployment }
-    - { config: /tmp/prometheus-service.yaml, resource: Service }
+    - { config: config-map.yaml, resource: ConfigMap }
+    - { config: prometheus-secret.yaml, resource: Secret }
+    - { config: prometheus-serviceaccount.yaml, resource: ServiceAccount }
+    - { config: prometheus-servicebinding.yaml, resource: ClusterRoleBinding }
+    - { config: prometheus-deployment.yaml, resource: Deployment }
+    - { config: prometheus-service.yaml, resource: Service }
   when: inventory_hostname == groups['kube-master'][0]

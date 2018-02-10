@@ -2,7 +2,7 @@
   become: yes
   template:
     src: "{{ item }}.j2"
-    dest: /tmp/{{ item }}
+    dest: "{{ kube_config_dir }}/{{ item }}"
   with_items:
     - cassandra-service.yaml
     - cassandra-service-metrics.yaml
@@ -16,10 +16,10 @@
     namespace: "default"
     kubectl: "{{bin_dir}}/kubectl"
     resource: "{{ item.resource }}"
-    filename: "{{ item.config }}"
+    filename: "{{ kube_config_dir }}/{{ item.config }}"
     state: "latest"
   with_items:
-    - { config: /tmp/cassandra-service.yaml, resource: Service }
-    - { config: /tmp/cassandra-statefulset.yaml, resource: StatefulSet }
-    - { config: /tmp/cassandra-service-metrics.yaml, resource: Service }
+    - { config: cassandra-service.yaml, resource: Service }
+    - { config: cassandra-statefulset.yaml, resource: StatefulSet }
+    - { config: cassandra-service-metrics.yaml, resource: Service }
   when: inventory_hostname == groups['kube-master'][0]

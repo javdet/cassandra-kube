@@ -8,8 +8,8 @@ metadata:
 data:
   prometheus.yml: |-
     global:
-      scrape_interval: 5s
-      evaluation_interval: 5s
+      scrape_interval: 10s
+      evaluation_interval: 10s
 
     scrape_configs:
       - job_name: 'kubernetes-apiservers'
@@ -127,3 +127,10 @@ data:
         - source_labels: [__meta_kubernetes_service_name]
           action: replace
           target_label: kubernetes_name
+
+      - job_name: 'cassandra'
+        static_configs:
+         - targets:
+           - cassandra-0.cassandra.default.svc.sde.local:7070
+           - cassandra-1.cassandra.default.svc.sde.local:7070
+           - cassandra-2.cassandra.default.svc.sde.local:7070
