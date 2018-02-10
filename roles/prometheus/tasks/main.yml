@@ -9,6 +9,7 @@
     - prometheus-serviceaccount.yaml
     - prometheus-servicebinding.yaml
     - prometheus-service.yaml
+    - prometheus-deployment.yaml
   when: inventory_hostname == groups['kube-master'][0]
 
 - name: Create namespace monitoring
