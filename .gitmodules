@@ -1,4 +1,3 @@
 [submodule "kubespray"]
-    path = kubespray
-    url = https://github.com/javdet/kubespray.git
-    branch = master
+	path = kubespray
+	url = https://github.com/javdet/kubespray.git
